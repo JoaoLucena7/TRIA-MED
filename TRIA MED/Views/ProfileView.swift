@@ -9,7 +9,7 @@ import SwiftUI
 
 
 struct ProfileStorageScreen: View {
-    @StateObject private var vm = StorageViewModel()
+    @StateObject private var viewmodel = StorageViewModel()
     
     var body: some View {
         ScrollView {
@@ -42,8 +42,8 @@ struct ProfileStorageScreen: View {
                     .foregroundStyle(.secondary)
                 
                 StorageProgressBar(
-                    docsFraction: vm.docsWidthFractionInUnifiedBar,
-                    midiasFraction: vm.midiasWidthFractionInUnifiedBar
+                    docsFraction: viewmodel.docsWidthFractionInUnifiedBar,
+                    midiasFraction: viewmodel.midiasWidthFractionInUnifiedBar
                 )
                 .frame(height: 10)
                 .padding(.top, 4)
