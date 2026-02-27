@@ -362,6 +362,63 @@ private struct SelectionIndicator: View {
         .animation(.spring(response: 0.28, dampingFraction: 0.85), value: isSelected)
     }
 }
+struct StorageProgressBar: View {
+    let docsFraction: Double
+    let midiasFraction: Double
+    
+    var body: some View {
+        GeometryReader { geo in
+            let w = geo.size.width
+            let docsW = w * CGFloat(clamped(docsFraction))
+            let midiasW = w * CGFloat(clamped(midiasFraction))
+            
+            ZStack(alignment: .leading) {
+                Capsule()
+                    .fill(Color.gray.opacity(0.25))
+                
+                HStack(spacing: 0) {
+                    Capsule()
+                        .fill(Color.blue)
+                        .frame(width: docsW)
+                    
+                    Capsule()
+                        .fill(Color.pink)
+                        .frame(width: midiasW)
+                }
+                .mask(Capsule())
+            }
+        }
+        .frame(height: 10)
+    }
+    
+    private func clamped(_ v: Double) -> Double {
+        min(1.0, max(0.0, v))
+    }
+}
+
+struct AccountRow: View {
+    let title: String
+    let icon: String
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 12) {
+                Text(title)
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundStyle(.primary)
+                
+                Spacer()
+                
+                Image(systemName: icon)
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundStyle(.secondary)
+            }
+            .padding(.vertical, 10)
+        }
+        .buttonStyle(.plain)
+    }
+}
 
 
 
